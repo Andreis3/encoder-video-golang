@@ -22,5 +22,4 @@ func TestNewJob(t *testing.T) {
 	require.NotNil(t, job)
 	require.Equal(t, "output", job.OutputBucketPath)
 	require.Equal(t, "status", job.Status)
-	require.Equal(t, video.ID, job.VideoID)
 }
