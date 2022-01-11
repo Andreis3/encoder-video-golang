@@ -28,6 +28,11 @@ RUN apk add --update --upgrade curl python unzip bash gcc g++ scons && \
     cp -R ${BENTO4_PATH}/Source/Python/utils ${BENTO4_PATH}/utils && \
     cp -a ${BENTO4_PATH}/Source/Python/wrappers/. ${BENTO4_PATH}/bin
 
+ENV GOOGLE_APPLICATION_CREDENTIALS=/go/src/bucket-credential.json 
+
+ADD . $GOOGLE_APPLICATION_CREDENTIALS
+
+
 WORKDIR /go/src
 
 #vamos mudar para o endpoint correto. Usando top apenas para segurar o processo rodando
