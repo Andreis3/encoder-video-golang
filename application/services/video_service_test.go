@@ -27,7 +27,7 @@ func prepare() (*domain.Video, repositories.VideoRepositoryDb) {
 
 	video := domain.NewVideo()
 	video.ID = uuid.NewV4().String()
-	video.FilePath = "estrelas-neutrons.mp4"
+	video.FilePath = "amine.mp4"
 	video.CreatedAt = time.Now()
 
 	repo := repositories.VideoRepositoryDb{Db: db}
