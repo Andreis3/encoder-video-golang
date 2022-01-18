@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"sync"
 )
 
 type JobManager struct {
@@ -18,6 +19,7 @@ type JobManager struct {
 	MessageChannel   chan amqp.Delivery
 	JobReturnChannel chan JobWorkerResult
 	RabbitMQ         *queue.RabbitMQ
+	Mutex            sync.Mutex
 }
 
 type JobNotificationError struct {
@@ -67,7 +69,10 @@ func (j *JobManager) Start(ch *amqp.Channel) {
 }
 
 func (j *JobManager) notifySuccess(jobResult JobWorkerResult, ch *amqp.Channel) error {
+	j.Mutex.Lock()
 	jobJSON, err := json.Marshal(jobResult)
+	j.Mutex.Unlock()
+
 	if err != nil {
 		return err
 	}
